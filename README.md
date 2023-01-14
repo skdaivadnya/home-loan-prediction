@@ -40,6 +40,9 @@ We have considered 3 mains tools to accomplish this project
      
 ### PostgreSQL:
       This is used to stored the data.
+      
+### Airflow:
+      For scheduling and monitoring the workflows.
 
 
 
