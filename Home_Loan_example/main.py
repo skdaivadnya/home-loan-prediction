@@ -1,23 +1,16 @@
-import codecs
-
 import uvicorn
 from typing import Dict
-from fastapi import File
 from fastapi import FastAPI
 from database import SessionLocal, engine, conn_string
-from fastapi import UploadFile
-import numpy as np
 import joblib
 import pandas as pd
 from pydantic import BaseModel
 import psycopg2
-from io import BytesIO
-import json
 import models
 
 
 
-class Features(BaseModel):  # serializer
+class Features(BaseModel): 
 
     Gender: int
     Married: int
@@ -99,18 +92,10 @@ async def predict(samples: Features):
     return {'prediction': str(Loan_status[0])}
 
 
-from fastapi.responses import HTMLResponse
-from typing import Optional
-
 @app.post("/multi-predictions")
 async def create_upload_file(file: Dict):
-    #print("got file")
-    #db_item = db.query(models.Features)
-    #test_csv = pd.read_csv(file.file)
-    test_csv = pd.DataFrame.from_dict(file)
 
-    #df2 = (test_csv.columns)
-    #df instead of test_csv
+    test_csv = pd.DataFrame.from_dict(file)
     test_csv = test_csv.dropna().reset_index()
     test_csv.rename(columns={'CoapplicantIncome': 'CoApplicantIncome'}, inplace=True)
     test_csv = test_csv.drop(['Loan_ID', 'Dependents', 'index'], axis=1)
@@ -131,33 +116,26 @@ async def create_upload_file(file: Dict):
 
     model = joblib.load('simple_logistic.joblib')
     Loan_status = model.predict(test_csv)
-    # print(Loan_status[0])
-    for i in range(len(test_csv)):
-        test_csv['Loan_status'] = Loan_status[i]
-        print(test_csv.head())
-        print(test_csv.columns)
+   
 
-        print("Loan status", Loan_status[i])
+    test_csv['Loan_status'] = Loan_status
+    print(test_csv.head(6))
+    conn = engine.connect()
+    test_csv = test_csv.drop_duplicates(keep= 'first')
 
-        conn = engine.connect()
+    test_csv.to_sql('home_loan_predictions50', con=conn, if_exists='replace')
 
-        test_csv = test_csv.drop_duplicates(keep='first')
+    conn = psycopg2.connect(conn_string)
 
-        test_csv.to_sql('home_loan_predictions17', con=conn, if_exists='replace')
+    cursor = conn.cursor()
 
-        conn = psycopg2.connect(conn_string)
+    conn.commit()
+  
+    print("sent to db.")
+   
 
-        #conn.autocommit = True
-        cursor = conn.cursor()
-
-        conn.commit()
-        # conn.close()
-        print("sent to db.")
-
-    #file.file.close()
-    #test_csv_json = test_csv.to_dict('split')
     print(test_csv)
-    #return {"filename": str(file.filename)}
+ 
     print("returned")
     return {"message": "success"}
 
