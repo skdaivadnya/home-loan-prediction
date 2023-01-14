@@ -30,6 +30,8 @@ We have considered 3 mains tools to accomplish this project
 ### FastAPI:
     There are total of 3 endpoints here: a) single-prediction(prediction for one sample), b) multi-predictions(for multiple samples), c) all items(to return features from database).
     
+    To start FastAPI: uvicorn main:app --reload
+    
     Pre-processing and all the necessary quality checks have also been done in this stage.
     
     
