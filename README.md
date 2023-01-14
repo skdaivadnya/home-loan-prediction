@@ -39,7 +39,7 @@ We have considered 3 mains tools to accomplish this project
      For this classification problem we have used logistic regression to make predictions.
      
 ### PostgreSQL:
-      This is used to stored the data.
+      This is used to stored the data and retrieve the data from database.
       
 ### Airflow:
       For scheduling and monitoring the workflows.
