@@ -43,6 +43,8 @@ We have considered 3 mains tools to accomplish this project
       
 ### Airflow:
       For scheduling and monitoring the workflows.
+      For starting the webserver: airflow webserver 
+      For starting the scheduler: airflow scheduler
 
 
 
