@@ -60,8 +60,6 @@ async def predict(samples: Features):
     Credit_History= float(samples['Credit_History'])
     Property_Area = str(samples['Property_Area'])
 
-    #features = [1, 0, 1, 1, 12, 23.0, 12.0, 1.0, 1.0, 1]
-
     features = [int(Gender), int(Married), int(Education), int(Self_Employed), int(ApplicantIncome), int(CoApplicantIncome), int(LoanAmount), int(Loan_Amount_Term),
                 int(Credit_History), int(Property_Area)]
     print(features)
