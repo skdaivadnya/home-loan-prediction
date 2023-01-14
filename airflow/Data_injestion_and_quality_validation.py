@@ -18,7 +18,7 @@ dag = DAG(
 # Define the task
 def check_csv_task():
     # Load the data
-    data = pd.read_csv("/Users/suryatejasista/Documents/airflow/folderA/test (2).csv")
+    data = pd.read_csv("test (2).csv")
 
     sample = data.sample(1)
 
@@ -38,7 +38,7 @@ def check_csv_task():
         print("result5:", result5)
 
         if result1['success'] and result2['success'] and result3['success'] and result4['success'] or result5['success']:
-           sample.to_csv(f'/Users/suryatejasista/Documents/airflow/folderB/{datetime.now().strftime("%Y-%M-%d_%H-%M-%S")}.csv',
+           sample.to_csv(f'folderB/{datetime.now().strftime("%Y-%M-%d_%H-%M-%S")}.csv',
                                 index=False)
 
            print("folderB notification sent")
@@ -46,7 +46,7 @@ def check_csv_task():
         else:
             print("data quality failed")
             sample.to_csv(
-                f'/Users/suryatejasista/Documents/airflow/folderC/{datetime.now().strftime("%Y-%M-%d_%H-%M-%S")}.csv',
+                f'folderC/{datetime.now().strftime("%Y-%M-%d_%H-%M-%S")}.csv',
                 index=False)
 
     except ge.exceptions.GreatExpectationsValidationError as e:
