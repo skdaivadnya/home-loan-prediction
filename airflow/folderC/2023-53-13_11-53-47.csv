@@ -1,0 +1,2 @@
+Loan_ID,Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area
+LP002816,Male,Yes,1,Graduate,No,3500,1658,104.0,360.0,,Semiurban
