@@ -2,7 +2,15 @@ apache-airflow==2.5.0
 great-expectations==0.15.41
 jupyter==1.0.0
 pandas==1.5.1
-psycopg2-binary==2.7.5
 python==3.8.2
 scikit-learn==0.24.2
 SQLalchemy==1.4.46
+numpy==1.22.3
+streamlit==1.8.1
+fastapi==0.75.2
+uvicorn==0.17.6
+stroke-pred-p0w11==0.1
+scikit-learn==1.0.2
+psycopg2-binary==2.9.5
+python-dotenv==0.20.0
+pync==2.0.3
