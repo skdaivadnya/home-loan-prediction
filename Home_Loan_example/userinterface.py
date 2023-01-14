@@ -81,10 +81,6 @@ elif Property_Area == 'Urban':
 else:
     Property_Area = 2
 
-
-
-#Property_Area = st.selectbox('select property area', (0, 1, 2))
-
 inputs = {"Gender" : Gender, "Married" : Married, "Education": Education, "Self_Employed" : Self_Employed,
           "ApplicantIncome" : (ApplicantIncome), "CoApplicantIncome" :(CoApplicantIncome), "LoanAmount" :(LoanAmount), "Loan_Amount_Term": (Loan_Amount_Term),
           "Credit_History" :(Credit_History), "Property_Area": Property_Area}
@@ -100,21 +96,12 @@ if st.button('single-prediction'):
 
 
 file_upl = st.file_uploader("select you file here:")
-#file_upl = file_upl.csv()
 if st.button('multi-predictions'):
     df = pd.read_csv(file_upl)
     df = df.dropna()
     dataframe_input = st.dataframe(df)
-    #json.dumps(dataframe_input)
-
-
-    #df = st.DataFrame(file_upl)
-    #st.write(df.columns)
     response = requests.post('http://127.0.0.1:8000/multi-predictions',  data = json.dumps(df.to_dict()))
     st.write(response.json())
-
-
-
 
 if st.button('all items'):
     response2 = requests.get('http://127.0.0.1:8000/items')
